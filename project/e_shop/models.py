@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
@@ -44,6 +45,10 @@ class Order(TimestampableIndexedMixin):
         return total_amount
 
     def complete_order(self, payment_option):
+        if self.get_total_amount() == 0:
+            raise ValidationError("Order is empty")
+        if self.order_type == OrderType.order:
+            raise ValidationError("Order is completed")
         self.order_type = OrderType.order
         self.payment_option = payment_option
         self.is_pending = True
