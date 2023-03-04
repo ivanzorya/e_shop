@@ -152,7 +152,6 @@ STATIC_URL = os.getenv(
     (FORCE_SCRIPT_NAME + STATIC_PATH if FORCE_SCRIPT_NAME else STATIC_PATH),
 )
 STATIC_ROOT = os.getenv("STATIC_ROOT")
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 
 # django-cors-headers
